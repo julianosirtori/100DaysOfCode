@@ -6,8 +6,13 @@
       <button>Add Priority</button>
     </form>
     <ul>
-      <draggable v-model="priorities">
-        <transition-group>
+      <draggable
+      v-model="priorities"
+      v-bind="dragOptions"
+        @start="isDragging = true"
+        @end="isDragging = false"
+      >
+        <transition-group name="flip-list">
           <li v-for="priority of priorities" :key="priority.id" class="item">
             <span>{{priority.name}}</span>
             <button @click="removePriority">
@@ -40,7 +45,18 @@ export default {
     return {
       newPriority: '',
       priorities: [],
+      isDragging: false,
     };
+  },
+  computed: {
+    dragOptions() {
+      return {
+        animation: 0,
+        group: 'description',
+        disabled: false,
+        ghostClass: 'ghost',
+      };
+    },
   },
   created() {
     this.loadPriorities();
@@ -147,6 +163,7 @@ export default {
       margin-bottom: 16px;
       padding: 16px;
       transition: 0.5s;
+      cursor: move;
 
       &:hover{
         cursor: pointer;
@@ -162,6 +179,19 @@ export default {
       }
 
     }
+  }
+
+  .ghost {
+    opacity: 0.5;
+    background: #c8ebfb;
+  }
+
+  .flip-list-move {
+    transition: transform 0.5s;
+  }
+
+  .no-move {
+    transition: transform 0s;
   }
 }
 </style>
