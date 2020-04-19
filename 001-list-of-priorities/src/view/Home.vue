@@ -9,8 +9,8 @@
       <draggable
       v-model="priorities"
       v-bind="dragOptions"
-        @start="isDragging = true"
-        @end="isDragging = false"
+      @start="isDragging = true"
+      @end="endDrag"
       >
         <transition-group name="flip-list">
           <li v-for="priority of priorities" :key="priority.id" class="item">
@@ -62,6 +62,10 @@ export default {
     this.loadPriorities();
   },
   methods: {
+    endDrag() {
+      this.isDragging = false;
+      localStorage.setItem('priorities', JSON.stringify(this.priorities));
+    },
     addPriority(event) {
       event.preventDefault();
 
