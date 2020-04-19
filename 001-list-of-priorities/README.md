@@ -1,4 +1,15 @@
-# 001-list-of-priorities
+List Of Priorities
+==============
+
+List of Priorities, you can list, add, organize and delete.
+
+![](screenshot_1.png )
+
+## Tecnologies used
+* Vue.js
+* Drag and Drop
+* SVG
+
 
 ## Project setup
 ```
