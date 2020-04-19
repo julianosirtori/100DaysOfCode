@@ -20,5 +20,7 @@ module.exports = {
   ],
   rules: {
     'max-len': 'off',
+    'no-alert': 'off',
+    'no-restricted-globals': 'off'
   },
 };

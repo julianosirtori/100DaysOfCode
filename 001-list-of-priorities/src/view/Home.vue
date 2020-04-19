@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <h1>List Of Priorities</h1>
-    <form>
-      <input type="text" placeholder="Digite here your new priority" />
+    <form @submit="addPriority">
+      <input required v-model="newPriority" type="text" placeholder="Digite here your new priority" />
       <button>Add Priority</button>
     </form>
     <ul>
@@ -10,7 +10,7 @@
         <transition-group>
           <li v-for="priority of priorities" :key="priority.id" class="item">
             <span>{{priority.name}}</span>
-            <button>
+            <button @click="removePriority">
               <IconBase icon-name="write" iconColor="#e75146" >
                 <IconDelete />
               </IconBase>
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+import { v1 as uuid } from 'uuid';
 import draggable from 'vuedraggable';
 
 import IconBase from '../components/IconBase.vue';
@@ -37,27 +38,36 @@ export default {
   },
   data() {
     return {
-      priorities: [
-        { name: 'Watch the louças', id: 1 },
-        { name: 'Watch the louças', id: 2 },
-        { name: 'Watch the louças', id: 3 },
-        { name: 'Watch the louças', id: 4 },
-
-      ],
+      newPriority: '',
+      priorities: [],
     };
   },
   created() {
     this.loadPriorities();
   },
   methods: {
-    addPriority() {
+    addPriority(event) {
+      event.preventDefault();
 
+      this.priorities.push({
+        name: this.newPriority,
+        id: uuid(this.newPriority),
+      });
+      this.newPriority = '';
+      localStorage.setItem('priorities', JSON.stringify(this.priorities));
     },
-    removePriority() {
-
+    removePriority(index) {
+      const respost = confirm('Do you have sure ?');
+      if (respost) {
+        this.priorities.splice(index, 1);
+        localStorage.setItem('priorities', JSON.stringify(this.priorities));
+      }
     },
     loadPriorities() {
-
+      const priorities = localStorage.getItem('priorities');
+      if (priorities) {
+        this.priorities = JSON.parse(priorities);
+      }
     },
   },
 };
