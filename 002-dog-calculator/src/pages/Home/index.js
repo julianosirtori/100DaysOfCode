@@ -12,8 +12,7 @@ import {
   Button,
   ButtonText,
   BirhText,
-  SubmitButton,
-  SubmitButtonText,
+
   ContainerResult,
   TextResult,
 } from './styles';
@@ -28,7 +27,7 @@ export default function Home() {
     const currentDate = selectedDate || birth;
     setShowDatePicker(false);
     setBirth(currentDate);
-    setResult(findIdadeHumana(birth));
+    setResult(findIdadeHumana(currentDate));
   }
 
   return (
