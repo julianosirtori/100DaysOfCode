@@ -1,4 +1,16 @@
-# 003-pixel-art
+Pixel Art
+==============
+
+List of Priorities, you can list, add, organize and delete.
+
+![](screenshot_1.png )
+
+## Tecnologies used
+* Vue.js
+* Vuetifyjs
+* <a href="https://github.com/eligrey/FileSaver.js/">FileSaver</a>
+* <a href="https://github.com/tsayen/dom-to-image/">Dom To Image</a>
+
 
 ## Project setup
 ```
