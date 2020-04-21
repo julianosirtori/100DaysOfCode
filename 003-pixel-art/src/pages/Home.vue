@@ -5,17 +5,17 @@
       <div class="config">
         <v-color-picker v-model="color" />
         <div class="btns-table">
-          <span>Coluna</span>
+          <span>Colunas</span>
           <div class="btns">
-            <v-btn icon color="red"><v-icon>mdi-minus</v-icon></v-btn>
-            <v-btn icon color="green"><v-icon>mdi-plus</v-icon></v-btn>
+            <v-btn icon color="red" @click="removeCollumn"><v-icon>mdi-minus</v-icon></v-btn>
+            <v-btn icon color="green" @click="addCollumn"><v-icon>mdi-plus</v-icon></v-btn>
           </div>  
         </div>
         <div class="btns-table">
-          <span>Linha</span>
+          <span>Linhas</span>
           <div class="btns">
-            <v-btn icon color="red"><v-icon>mdi-minus</v-icon></v-btn>
-            <v-btn icon color="green"><v-icon>mdi-plus</v-icon></v-btn>
+            <v-btn icon color="red" @click="removeRow"><v-icon>mdi-minus</v-icon></v-btn>
+            <v-btn icon color="green" @click="addRow"><v-icon>mdi-plus</v-icon></v-btn>
           </div>  
         </div>
         
@@ -54,11 +54,40 @@
         column.color  = this.color;
       },
       handleHover(event, column){
-        console.log(event);
         if(event.buttons == 1){
           column.color  = this.color;
         }
-        
+      },
+      addRow(){
+        const lastRow = this.matriz[this.matriz.length - 1];
+        const tamanho = lastRow ? lastRow.columns.length : 1;        
+        const columns = [];
+        // anteriorimente eu tinha usado o fill() mas o vuejs intepreta como objetos iguais
+        for(let i = 0; i< tamanho; i++){
+          columns.push({
+            color: '#fff',
+          })
+        }
+        this.matriz.push({
+          columns
+        });        
+      },
+      removeRow(){
+        this.matriz.splice(this.matriz.length - 1, 1);        
+      },
+      addCollumn(){
+        this.matriz = this.matriz.map(item => {
+          item.columns.push({
+            color: '#fff'
+          })
+          return item;
+        });
+      },
+      removeCollumn(){
+       this.matriz = this.matriz.map(item => {
+          item.columns.splice(item.columns.length - 1, 1)
+          return item;
+        }); 
       }
     },
   }
@@ -80,12 +109,26 @@
         flex-direction: column;
 
         .btns-table{
+          border-radius: 4px;
+          margin-top: 16px;
+          contain: content;
+          box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);          
           width: 100%;
           display: flex;
+          font-size: 18px;
           flex-direction: row;
           align-items: center;
           justify-content: space-between;
           padding: 16px;
+
+          .btns{
+            button{
+              margin-right: 16px;
+            }
+            i{
+              font-size: 32px;
+            }
+          }
         }
       }
     }
