@@ -19,10 +19,18 @@
             <v-btn icon color="green" @click="addRow"><v-icon>mdi-plus</v-icon></v-btn>
           </div>  
         </div>
-        
+        <v-btn  
+          :loading="loading"
+          :disabled="loading" 
+          color="success" 
+          class="btn-download" 
+          @click="downloadImage">
+          Download 
+          <v-icon right dark>mdi-download</v-icon>
+        </v-btn>
       </div>
       <div class="table">
-        <table cellspacing="0" cellpadding="0">
+        <table cellspacing="0" cellpadding="0" id="table">
           <tr v-for="(row, index_row) of matriz" :key="index_row">
             <td 
               v-for="(column, index_columns) of row.columns" 
@@ -40,6 +48,9 @@
 </template>
 
 <script>
+  import domtoimage from 'dom-to-image';
+  import { saveAs } from 'file-saver';
+
   import matriz from '../data/matriz';
 
   export default {
@@ -47,10 +58,26 @@
     data() {
       return {
         color: "#46af37",
+        loading: false,
         matriz: matriz
       }
     },
     methods: {
+      downloadImage(){
+        this.loading=  true;
+
+        var node = document.getElementById('table');
+
+        domtoimage.toBlob(node)
+          .then((blob) => {
+            
+            saveAs(blob, 'pixel_art.png');
+            this.loading=  false;
+          })
+          .catch(function (error) {
+            console.error('oops, something went wrong!', error);
+          });
+      },
       handleClick(column) {
         column.color  = this.color;
       },
@@ -138,6 +165,10 @@
               font-size: 32px;
             }
           }
+        }
+
+        .btn-download{
+          margin-top: 32px;
         }
       }
     }

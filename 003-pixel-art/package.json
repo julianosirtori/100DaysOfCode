@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "core-js": "^3.6.4",
+    "dom-to-image": "^2.6.0",
+    "file-saver": "^2.0.2",
     "vue": "^2.6.11",
     "vuetify": "^2.2.11"
   },
