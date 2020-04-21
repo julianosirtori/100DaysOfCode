@@ -24,7 +24,6 @@ module.exports = {
     'prettier',
   ],
   rules: {
-    'prettier/prettier' : 'error',
     'react/jsx-filename-extension': [
         'warn',
         { extensions: ['.jsx', '.js'] }

@@ -1,7 +1,20 @@
 import React, {useState} from 'react';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { Container, Title, Form, Button, ButtonText, PickerSize, SubmitButton, SubmitButtonText } from './styles';
+import Paw from '../../assets/paw.png';
+import { 
+  Container,  
+  Title,
+  Image, 
+  Form, 
+  Button, 
+  ButtonText, 
+  PickerContainer, 
+  PickerSize, 
+  SubmitButton, 
+  SubmitButtonText,
+  ContainerResult,
+  TextResult } from './styles';
 
 export default function Home() {
   const [showDatePicker, setShowDatePicker] = useState(false);
@@ -9,27 +22,41 @@ export default function Home() {
 
   return (
     <Container>
-      <Title>Quantos anos tem seu cachorro</Title>
-
+      <Image source={Paw}/>
+      <Title>Descubra a idade do seu dog em relação aos humanos</Title>
+      
       <Form>
+          
           <Button onPress={() => setShowDatePicker(!showDatePicker)}>
-            <ButtonText>Quando seu dog nasceu</ButtonText>
+            <ButtonText>Quando seu dog nasceu ?</ButtonText>
           </Button>
-          <PickerSize>
-            <PickerSize.Item label="small" value="small" />
-            <PickerSize.Item label="medium" value="medium" />
-            <PickerSize.Item label="big" value="big" />
-          </PickerSize>
-          {showDatePicker && (
-            <DateTimePicker
-              is24Hour={true}
-              value={birth}
-              display="default"
-            />
-          )}
+          
+          <PickerContainer>
+            <PickerSize>
+              <PickerSize.Item label="Selecione o Tamanho" value="null" />
+              <PickerSize.Item label="small" value="small" />
+              <PickerSize.Item label="medium" value="medium" />
+              <PickerSize.Item label="big" value="big" />
+            </PickerSize>
+            {showDatePicker && (
+              <DateTimePicker
+                is24Hour={true}
+                value={birth}
+                display="default"
+              />
+            )}
+          </PickerContainer>
+          
           <SubmitButton>
             <SubmitButtonText>Calcular</SubmitButtonText>
           </SubmitButton>
+          
+          <ContainerResult>
+              <TextResult>
+                Seu Dog tem 15 anos adultos
+              </TextResult>
+
+          </ContainerResult>
 
       </Form>
       
