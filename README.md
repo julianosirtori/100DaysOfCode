@@ -11,5 +11,6 @@ Inspiered by https://www.100daysofcode.com/
 My tweeter is <a href="https://twitter.com/julianosirtori">@julianosirtori</a> 
 
 |day|Project|
-|-------|:-------------------:|
-| 1     |  list of priorities
+|---------|:----------------------------------------:|
+| 001     |  list of priorities
+| 002     |  app calculate dog years to human years
