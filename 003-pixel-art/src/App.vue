@@ -1,9 +1,6 @@
 <template>
-  <v-app>
-    <v-content>
-      <Home />
-    </v-content>
-    
+  <v-app id="app">
+    <Home />
   </v-app>
 
 </template>
@@ -24,6 +21,7 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+  background: #00a0dc;
+  height: 100%;
 }
 </style>

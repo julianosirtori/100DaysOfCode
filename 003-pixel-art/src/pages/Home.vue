@@ -1,8 +1,9 @@
 <template>
-  <div class="container">
-    <h1>Pixel Art</h1>
+  <v-card class="card">
+    
     <div class="arena">
       <div class="config">
+        <h1>Pixel Art</h1>
         <v-color-picker v-model="color" />
         <div class="btns-table">
           <span>Colunas</span>
@@ -35,7 +36,7 @@
       </div>
       
     </div>
-  </div>
+  </v-card>
 </template>
 
 <script>
@@ -45,7 +46,7 @@
     name: "Home",
     data() {
       return {
-        color: "",
+        color: "#46af37",
         matriz: matriz
       }
     },
@@ -94,10 +95,10 @@
 </script>
 
 <style lang="scss" scoped>
-  .container{
-    h1{
-      text-align: center;
-    }
+  .card{
+    max-width: 1120px;
+    margin: auto;
+    padding: 32px;
 
     .arena{
       display: flex;
@@ -107,6 +108,14 @@
       .config{
         display: flex;
         flex-direction: column;
+        margin-right: 32px;
+
+        h1{
+          text-align: center;
+          margin-bottom: 16px;
+          color: #46AF37;
+
+        }
 
         .btns-table{
           border-radius: 4px;
