@@ -1,7 +1,7 @@
 Pomodoro App
 ==============
 
-![](screenshot.png )
+![](screenshot_1.png)
 
 ## Tecnologies used
 * expo
