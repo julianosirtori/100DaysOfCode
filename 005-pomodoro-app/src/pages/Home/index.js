@@ -10,6 +10,9 @@ import {
 export default function Home() {
   const [time, setTime] = useState(0);
   const [statusTime, setStatusTime] = useState('stop');
+  const [stepPosition, setStepPosition] = useState(0);
+
+  const steps = [2, 1, 2, 1, 2, 1, 5, 3];
 
   const timeRef = useRef(time);
   const intervalRef = useRef();
@@ -21,9 +24,14 @@ export default function Home() {
   }
 
   useEffect(() => {
-    setTimeMinutes(25);
+    setTimeMinutes(steps[stepPosition]);
   }, []);
 
+  function getMilliseconds(period) {
+    const split = period.split(':');
+    const milliseconds = split[0] * 60000;
+    return milliseconds + (split[1] * 1000);
+  }
 
   function startTime() {
     setStatusTime('started');
@@ -31,6 +39,16 @@ export default function Home() {
       timeRef.current = getTime(subSeconds(timeRef.current, 1));
       setTime(timeRef.current);
     }, 1000);
+
+    const milliseconds = getMilliseconds(format(time, 'mm:ss')) + 1000;
+    setTimeout(() => {
+      let newPosition = stepPosition + 1;
+      newPosition = newPosition === 9 ? 0 : newPosition;
+      setTimeMinutes(steps[newPosition]);
+      setStepPosition(newPosition);
+      startTime();
+      clearInterval(intervalRef.current);
+    }, milliseconds);
   }
 
   function pauseTime() {
@@ -41,14 +59,15 @@ export default function Home() {
   function stopTime() {
     setStatusTime('stop');
     clearInterval(intervalRef.current);
-    setTimeMinutes(25);
+    setStepPosition(0);
+    setTimeMinutes(steps[0]);
   }
 
   function saveTime() {
 
   }
 
-  function getButton() {
+  function getButtons() {
     switch (statusTime) {
       case 'stop':
         return (
@@ -89,11 +108,11 @@ export default function Home() {
   }
 
   return (
-    <Container>
+    <Container color={(stepPosition % 2 !== 0) ? '#b2df8a' : '#d04643'}>
       <ClockText>{format(time, 'mm:ss')}</ClockText>
       <ContainerButtons>
         {
-         getButton()
+         getButtons()
         }
       </ContainerButtons>
     </Container>
